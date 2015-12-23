@@ -1,0 +1,43 @@
+{% load staticfiles %}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>
+        {% block title %}{% endblock %}
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static "css/style.css" %}">
+    <script src="{% static "js/jquery.min.js" %}"></script>
+    {% block extra_head %}
+    {% endblock %}{#每个页面的自己js,css等#}
+</head>
+<body>
+<div class="main">
+    <div class="menu">{#所以页面同一个导航栏#}
+        <ul class="nav">
+            <li><a id="l1" href="{% url "home" %}">首页</a></li>
+            <li><a id="l2" href="{% url "order" %}">订票</a></li>
+            <li><a id="l3" href="{% url "about" %}">关于</a></li>
+        </ul>
+        <div class="userstatus">
+            <span>你好，请
+                <a>登录</a>|
+                <a>注册</a>|
+            </span>
+            <span>
+                <a>谁的12306</a>
+            </span>
+        </div>
+    </div>
+    <div class="content">{#每个页面具体的内容#}
+    {% block content %}
+    {% endblock content %}
+    </div>
+    <div class="footer">{#每个页面具体的结尾#}
+        <p>Thanks for visiting my site! </p>
+    </div>
+</div>
+</body>
+</html>
