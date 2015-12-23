@@ -10,41 +10,36 @@
     </script>
     <style>
     .logindiv{
-        width: 500px;
-        height: 400px;
+        width: 400px;
+        height: 300px;
         border-radius: 10px;
-        background-color: #cacaca;
+        background-color:#5bc0de;
         opacity: 50;
         margin: auto;
         text-align: center;
         vertical-align: middle;
     }
-    input[type="button"]{
-        width: 100px;
-        height: 60px;
-        display: inline-block;
-    }
     </style>
 {% endblock %}
 
 {% block content%}
-    <form action="" method="post">
-    <div style="width: 100%;background-color: white;height: 500px">
+    <form action="" method="post" class="form-inline">{% csrf_token %}
+    <div style="width: 100%;background-color: white;height: 400px;margin-top: 100px">
         <table class="logindiv">
             <tr>
                 <td>
-                    <label>用户名:</label> <input type="text">
+                    <label>用户名:</label> <input class="form-control" type="text">
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label>用户名:</label> <input type="password">
+                    <label>密码:</label> <input class="form-control" type="password">
                 </td>
             </tr>
             <tr>
                 <td>
-                    <input type="button" value="注册">
-                    <input type="submit" value="登录">
+                    <input class="btn btn-default" type="button" onclick="location='{% url "register" %}'" value="注册">
+                    <input class="btn btn-primary" type="submit" value="登录">
                 </td>
             </tr>
         </table>

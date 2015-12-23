@@ -7,41 +7,56 @@
     </script>
     <style>
     .regdiv{
-        width: 500px;
-        height: 400px;
+        width: 400px;
+        height: 300px;
         border-radius: 10px;
-        background-color: #cacaca;
+        background-color:#9d9d9d;
         opacity: 50;
         margin: auto;
         text-align: center;
         vertical-align: middle;
     }
-    input[type="button"]{
-        width: 100px;
-        height: 60px;
-        display: inline-block;
-    }
+
     </style>
 {% endblock %}
 
 {% block content%}
-    <form action="" method="post">
-    <div style="width: 100%;background-color: white;height: 500px">
-        <table class="logindiv">
+    <form action="" method="post" class="form-inline">
+    <div style="width: 100%;background-color: white; height: 400px; margin-top: 100px">
+        <table class="regdiv">
             <tr>
                 <td>
-                    <label>用户名:</label> <input type="text">
+                    <label>用户名:</label>
+                </td>
+                <td>
+                    <input class="form-control" type="text">
+                </td>
+            </tr>
+             <tr>
+                <td>
+                    <label>邮箱:</label>
+                </td>
+                 <td>
+                     <input class="form-control" type="text">
+                 </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>密码:</label>
+                </td>
+                <td>
+                    <input class="form-control" type="password">
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label>用户名:</label> <input type="password">
+                    <label>确认密码:</label>
                 </td>
-            </tr>
+                <td><input class="form-control" type="password"></td>
+            </tr>>
             <tr>
-                <td>
-                    <input type="button" value="注册">
-                    <input type="submit" value="登录">
+                <td colspan="2">
+                    <input type="submit" class="btn bnt-sm" value="注册">
                 </td>
             </tr>
         </table>

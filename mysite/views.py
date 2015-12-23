@@ -4,6 +4,7 @@ from django.http import Http404
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
+from django.core.context_processors import csrf
 
 
 def home(request):
@@ -15,15 +16,27 @@ def about(request):
 
 
 def order(request):
-    return render_to_response('ordersearch.html')
-
-
-def login(request):
+    c = {}
+    c.update(csrf(request))
     if request.method == "GET":
-        return HttpResponseRedirect("login.html")
+        return render_to_response("ordersearch.html", c)
     else:
-        render_to_response("login.html")
+        render_to_response("ordersearch.html", c)
+
+
+def alogin(request):
+    c = {}
+    c.update(csrf(request))
+    if request.method == "GET":
+        return render_to_response("login.html", c)
+    else:
+        render_to_response("login.html", c)
 
 
 def register(request):
-    render_to_response("register.html")
+    c = {}
+    c.update(csrf(request))
+    if request.method == "GET":
+        return render_to_response("register.html",c)
+    else:
+        render_to_response("register.html", c)

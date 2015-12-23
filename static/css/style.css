@@ -23,17 +23,18 @@ body{
     margin: 0px;
     border: 0px;
     overflow: hidden;
+    border-bottom: 5px solid #478DCD;
 }
 
 ul.mynav{
     width: 50%;
-    height: 50px;
+    height: 45px;
     display: inline-block;
     border: 0px;
     padding: 0px;
     margin: 0px;
     background-color: #478DCD;
-    border-radius:0px 0px 50px 0px;
+    border-radius:0px 45px 0px 0px;
 }
 
 ul.mynav li{
@@ -46,6 +47,7 @@ ul.mynav li{
 }
 
 ul.mynav li a{
+    color: black;
     display: block;
     line-height: 40px;
     background-color: #478DCD;
@@ -75,6 +77,14 @@ ul.mynav li a:hover{
 }
 
 .myfooter {
+    border-top:2px solid #478DCD ;
     height: 100px;
     width: 100%;
+    line-height: 10px;
+    text-align: center;
+    padding-top: 20px;
+    margin-top: 20px;
+}
+a:hover{
+    text-decoration: none;
 }
