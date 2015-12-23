@@ -17,3 +17,13 @@ def about(request):
 def order(request):
     return render_to_response('ordersearch.html')
 
+
+def login(request):
+    if request.method == "GET":
+        return HttpResponseRedirect("login.html")
+    else:
+        render_to_response("login.html")
+
+
+def register(request):
+    render_to_response("register.html")

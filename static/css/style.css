@@ -6,7 +6,7 @@ body{
     border: 0px;
 }
 
-.main {
+.mymain {
     display: block;
     width: 1024px;
     margin: 0px auto;
@@ -15,7 +15,7 @@ body{
     border: 0px;
 }
 
-.menu{
+.mymenu{
     width: 1024px;
     height: 50px;
     display: block;
@@ -25,7 +25,7 @@ body{
     overflow: hidden;
 }
 
-ul.nav{
+ul.mynav{
     width: 50%;
     height: 50px;
     display: inline-block;
@@ -36,7 +36,7 @@ ul.nav{
     border-radius:0px 0px 50px 0px;
 }
 
-ul.nav li{
+ul.mynav li{
     float: left;
     display: inline-block;
     width: 100px;
@@ -45,7 +45,7 @@ ul.nav li{
     margin-top: 5px;
 }
 
-ul.nav li a{
+ul.mynav li a{
     display: block;
     line-height: 40px;
     background-color: #478DCD;
@@ -53,7 +53,7 @@ ul.nav li a{
     text-align: center;
 }
 
-ul.nav li a:hover{
+ul.mynav li a:hover{
     background-color: #ffffff;
 }
 
@@ -69,16 +69,12 @@ ul.nav li a:hover{
     overflow: hidden;
 }
 
-.content{
+.mycontent{
     width: 100%;
     margin-top: 10px;
 }
 
-.footer {
+.myfooter {
     height: 100px;
     width: 100%;
-}
-
-a{
-    text-decoration: none;
 }

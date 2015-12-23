@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}
+    注册
+{% endblock %}
+{% block extra_head %}
+    <script type="text/javascript">
+    </script>
+    <style>
+    .regdiv{
+        width: 500px;
+        height: 400px;
+        border-radius: 10px;
+        background-color: #cacaca;
+        opacity: 50;
+        margin: auto;
+        text-align: center;
+        vertical-align: middle;
+    }
+    input[type="button"]{
+        width: 100px;
+        height: 60px;
+        display: inline-block;
+    }
+    </style>
+{% endblock %}
+
+{% block content%}
+    <form action="" method="post">
+    <div style="width: 100%;background-color: white;height: 500px">
+        <table class="logindiv">
+            <tr>
+                <td>
+                    <label>用户名:</label> <input type="text">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>用户名:</label> <input type="password">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="button" value="注册">
+                    <input type="submit" value="登录">
+                </td>
+            </tr>
+        </table>
+    </div>
+    </form>
+{% endblock %}

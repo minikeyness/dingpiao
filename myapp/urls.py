@@ -24,4 +24,6 @@ urlpatterns = [
     url(r'^home/$', home, name="home"),
     url(r'^about/$', about, name="about"),
     url(r'^order/$', order, name="order"),
+    url(r'^login/$', login, name="loginin"),
+    url(r'^register/$',register, name="register"),
 ]
