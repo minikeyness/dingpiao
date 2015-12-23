@@ -14,8 +14,9 @@
     </style>
 {% endblock %}
 
-{% block content%}
+{% block content%}{% load static %}
     <form>
+    {% crsf_token %}
     订票开发中...
     </form>
 {% endblock %}
