@@ -14,9 +14,8 @@
     </style>
 {% endblock %}
 
-{% block content%}{% load static %}
-    <form class="form-inline">
-    {% crsf_token %}
+{% block content%}
+    <form class="form-inline">{% csrf_token %}
     订票开发中...
     </form>
 {% endblock %}

@@ -16,27 +16,21 @@ def about(request):
 
 
 def order(request):
-    c = {}
-    c.update(csrf(request))
     if request.method == "GET":
-        return render_to_response("ordersearch.html", c)
+        return render(request, "ordersearch.html")
     else:
-        render_to_response("ordersearch.html", c)
+        return render(request, "ordersearch.html")
 
 
 def alogin(request):
-    c = {}
-    c.update(csrf(request))
     if request.method == "GET":
-        return render_to_response("login.html", c)
+        return render(request, "login.html")
     else:
-        render_to_response("login.html", c)
+        return render(request, "login.html")
 
 
 def register(request):
-    c = {}
-    c.update(csrf(request))
     if request.method == "GET":
-        return render_to_response("register.html",c)
+        return render(request, "register.html")
     else:
-        render_to_response("register.html", c)
+        return render(request, "register.html")

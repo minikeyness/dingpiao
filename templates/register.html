@@ -21,7 +21,7 @@
 {% endblock %}
 
 {% block content%}
-    <form action="" method="post" class="form-inline">
+    <form action="" method="post" class="form-inline">{% csrf_token %}
     <div style="width: 100%;background-color: white; height: 400px; margin-top: 100px">
         <table class="regdiv">
             <tr>
