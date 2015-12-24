@@ -16,20 +16,19 @@
         text-align: center;
         vertical-align: middle;
     }
-
     </style>
 {% endblock %}
 
 {% block content%}
-    <form action="" method="post" class="form-inline">{% csrf_token %}
-    <div style="width: 100%;background-color: white; height: 400px; margin-top: 100px">
-        <table class="regdiv">
+    <form action="" method="post" class="form-inline" role="form">{% csrf_token %}
+        <div style="width: 100%;background-color: white; height: 400px; margin-top: 100px">
+            <table class="regdiv">
             <tr>
                 <td>
                     <label>用户名:</label>
                 </td>
                 <td>
-                    <input class="form-control" type="text">
+                    <input name="nickName" class="form-control" type="text">
                 </td>
             </tr>
              <tr>
@@ -37,7 +36,7 @@
                     <label>邮箱:</label>
                 </td>
                  <td>
-                     <input class="form-control" type="text">
+                     <input name="userEmail" class="form-control" type="text">
                  </td>
             </tr>
             <tr>
@@ -45,21 +44,21 @@
                     <label>密码:</label>
                 </td>
                 <td>
-                    <input class="form-control" type="password">
+                    <input name="passPwd" class="form-control" type="password">
                 </td>
             </tr>
             <tr>
                 <td>
                     <label>确认密码:</label>
                 </td>
-                <td><input class="form-control" type="password"></td>
-            </tr>>
+                <td><input name="passPwd2" class="form-control" type="password"></td>
+            </tr>
             <tr>
                 <td colspan="2">
                     <input type="submit" class="btn bnt-sm" value="注册">
                 </td>
             </tr>
-        </table>
-    </div>
+            </table>
+        </div>
     </form>
 {% endblock %}
