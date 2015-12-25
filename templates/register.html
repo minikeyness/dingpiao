@@ -4,13 +4,44 @@
 {% endblock %}
 {% block extra_head %}
     <script type="text/javascript">
+    function checktrue()
+    {
+        val1=$("#id_nickName").val();
+        val2=$("#id_UserEmail").val();
+        val3=$("#id_passPwd").val();
+        val4=$("#id_passPwd2").val();
+        if (val1!="" &&val2!="" && val3!="" &&val4!="")
+        return true;
+        else
+        return false;
+    }
+        $(function(){
+            {% if cw %}
+                alert("注册失败！可能是用户名和邮箱已经存在！")
+            {% endif %}
+            {% if cg %}
+                alert("注册成功！你可以前往登录!")
+            {% endif %}
+            $("#subt").click(function(e){
+                if (!checktrue())
+                {
+                    e.preventDefault();
+                    alert("所有项都不能为空！");
+                }
+                else if ($("#id_passPwd").val()!=$("#id_passPwd2").val())
+                {
+                    e.preventDefault();
+                    alert("两次输入密码不一样!");
+                }
+            })
+        })
     </script>
     <style>
     .regdiv{
         width: 400px;
         height: 300px;
         border-radius: 10px;
-        background-color:#9d9d9d;
+        background-color:#e1edf7;
         opacity: 50;
         margin: auto;
         text-align: center;
@@ -22,47 +53,66 @@
 {% block content%}
     <form action="" method="post" class="form-inline" role="form">{% csrf_token %}
         <div style="width: 100%;background-color: white; height: 400px; margin-top: 100px">
-            {% if form.error %}
-                <p style="color: red;text-align: center;width: 100%;display: block">{{ form.errors }}</p>
-            {% endif %}
-
             <table class="regdiv">
-            <tr>
+                {% for field in form %}
+                <tr>
                 <td>
-                    <label>用户名:</label>
+                   {{ field.label_tag }}
                 </td>
-                <td>
-                    <input name="nickName" class="form-control" type="text">
+                    <td>
+                    {{ field }}
+                    </td>
                 </td>
-            </tr>
+                </tr>
+                    <tr>
+                        <td colspan="2" style="color: red">
+                        {{ field.errors.as_text }}
+                        </td>
+                    </tr>
+                {% endfor %}
              <tr>
-                <td>
-                    <label>邮箱:</label>
-                </td>
-                 <td>
-                     <input name="userEmail" class="form-control" type="text">
-                 </td>
-            </tr>
-            <tr>
-                <td>
-                    <label>密码:</label>
-                </td>
-                <td>
-                    <input name="passPwd" class="form-control" type="password">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label>确认密码:</label>
-                </td>
-                <td><input name="passPwd2" class="form-control" type="password"></td>
-            </tr>
-            <tr>
                 <td colspan="2">
-                    <input type="submit" class="btn bnt-sm" value="注册">
+                   <input type="submit" id="subt" class="btn bnt-sm" value="注册">
                 </td>
-            </tr>
+             </tr>
             </table>
+{#            <table class="regdiv">#}
+{#            <tr>#}
+{#                <td>#}
+{#                    <label>用户名:</label>#}
+{#                </td>#}
+{#                <td>#}
+{#                    <input name="nickName" class="form-control" type="text">#}
+{#                </td>#}
+{#            </tr>#}
+{#             <tr>#}
+{#                <td>#}
+{#                    <label>邮箱:</label>#}
+{#                </td>#}
+{#                 <td>#}
+{#                     <input name="userEmail" class="form-control" type="text">#}
+{#                 </td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <td>#}
+{#                    <label>密码:</label>#}
+{#                </td>#}
+{#                <td>#}
+{#                    <input name="passPwd" class="form-control" type="password">#}
+{#                </td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <td>#}
+{#                    <label>确认密码:</label>#}
+{#                </td>#}
+{#                <td><input name="passPwd2" class="form-control" type="password"></td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <td colspan="2">#}
+{#                    <input type="submit" class="btn bnt-sm" value="注册">#}
+{#                </td>#}
+{#            </tr>#}
+{#            </table>#}
         </div>
     </form>
 {% endblock %}

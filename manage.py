@@ -12,4 +12,5 @@ if __name__ == "__main__":
         pass
 
     from django.core.management import execute_from_command_line
+    #execute_from_command_line('clearsessions')
     execute_from_command_line(sys.argv)

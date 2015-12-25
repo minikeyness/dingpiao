@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block title %}
+    首页
+{% endblock %}
+{% block extra_head %}
+    <script type="text/javascript">
+    $(function(){
+    });
+    </script>
+    <style>
+    .leftnav{
+        display: inline-block;
+        width: 200px;
+        height: 300px;
+        border: 2px solid #1E81C4;
+        border-radius: 3px;
+        margin: 5px;
+        overflow: hidden;
+        vertical-align: top;
+    }
+    .leftnav dl{
+        display:block;
+        width: 200px;
+        text-align: center;
+    }
+    .leftnav dl dt{
+        display: block;
+        width:100%;
+        height: 40px;
+        line-height: 40px;
+        text-align: left;
+        background-color:#5bc0de;
+    }
+    .leftnav dl dd{
+        height: 30px;
+        line-height: 30px;
+    }
+    .leftnav dl dd:hover{
+         background-color: #a6e1ec;
+    }
+    .rightcent{
+        width: 800px;
+        min-height:600px;
+        display: inline-block;
+        border: 2px solid #1E81C4;
+        border-radius: 3px;
+        margin: 5px;
+        overflow: hidden;
+    }
+    </style>
+{% endblock %}
+
+{% block content%}{% load staticfiles %}
+    <div style="margin:auto; padding: 0px; width: 100%;text-align: center;overflow:hidden">
+
+    <div class="leftnav">
+        <dl>
+            <dt>用户信息</dt>
+            <dd><a href="{% url "userinfo" %}">用户信息管理</a></dd>
+            <dd style="background-color: #a6e1ec"><a href="#">联系人管理</a></dd>
+            <dt>订单</dt>
+            <dd><a href="#">订单</a></dd>
+            <dd><a href="#">退订</a></dd>
+        </dl>
+    </div>
+    <div class="rightcent">
+    <table class="table table-striped table-bordered table-hover table-condensed">
+    <thead >
+    <tr>
+       <th colspan="4">
+           <input type="button" class="btn btn-primary btn-sm" value="添加">
+       </th>
+    </tr>
+    <tr>
+        <th style="text-align: center">真实姓名</th>
+        <th style="text-align: center">身份证</th>
+        <th style="text-align: center">手机号</th>
+        <th style="text-align: center">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+        {% for row in peoples %}
+            <tr>
+            <td>{{ row.1 }}</td>
+            <td>{{ row.2 }}</td>
+            <td>{{ row.3 }}</td>
+            <td><input type="button" class="btn btn-danger btn-sm" value="删除"></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+    </div>
+    </div>
+{% endblock %}

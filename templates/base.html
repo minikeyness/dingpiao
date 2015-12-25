@@ -27,7 +27,8 @@
         <div class="userstatus">
             {% if user and user.is_authenticated %}
                 <label>你好,</label>
-                <a href="#">{{ user.nickName }}</a>
+                <a href="/user/center/">{{ user.nickName }}</a>
+                <a style="color: black" href="{% url "loginout" %}">退出</a>
             {% else %}
                 <label>你好,请</label>
                 <a href="{% url "loginin" %}">登录 | </a>

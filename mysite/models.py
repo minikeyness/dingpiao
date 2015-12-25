@@ -1,7 +1,7 @@
 from django.db import models
 import hashlib
 from django.utils.crypto import salted_hmac
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractBaseUser
 
 class CustomUserManager:
 

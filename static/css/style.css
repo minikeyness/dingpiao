@@ -86,7 +86,7 @@ ul.mynav li a:hover{
     line-height: 10px;
     text-align: center;
     padding-top: 20px;
-    margin-top: 20px;
+    margin-top: 5px;
 }
 a:hover{
     text-decoration: none;

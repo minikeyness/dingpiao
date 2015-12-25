@@ -17,6 +17,7 @@ Including another URLconf
 from django.conf.urls import url
 #from django.contrib import admin
 from mysite.views import *
+from mysite.userview import *
 
 urlpatterns = [
     #url(r'^admin/', admin.site.urls),
@@ -25,5 +26,8 @@ urlpatterns = [
     url(r'^about/$', about, name="about"),
     url(r'^order/$', order, name="order"),
     url(r'^login/$', alogin, name="loginin"),
+    url(r'^loginout/$', alogin_out, name="loginout"),
     url(r'^register/$', register, name="register"),
+    url(r'^user/center/$', userinfo, name="userinfo"),
+    url(r'^user/contact/$', usercontact, name="contactinfo"),
 ]

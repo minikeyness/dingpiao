@@ -5,7 +5,18 @@
 {% block extra_head %}
     <script type="text/javascript">
     $(function () {
-        $("[data-toggle='popover']").popover();
+
+        {% if  su %}
+        alert("注册成功，请登录！");
+        {% endif %}
+{#        $("[data-toggle='popover']").popover();#}
+    $("input[type=submit]").click(function(e){
+        if ($("#uname").val()==""||$("#upwd").val()=="")
+        {
+            e.preventDefault();
+            alert("请输入用户名和密码!");
+        }
+    });
     });
     </script>
     <style>
@@ -13,7 +24,7 @@
         width: 400px;
         height: 300px;
         border-radius: 10px;
-        background-color:#5bc0de;
+        background-color:#e1edf7;
         opacity: 50;
         margin: auto;
         text-align: center;
@@ -25,18 +36,18 @@
 {% block content%}
     <form action="" method="post" class="form-inline">{% csrf_token %}
     <div style="width: 100%;background-color: white;height: 400px;margin-top: 100px">
-        {% if err %}
-        <p style="color: red;text-align: center;width: 100%;display: block">{{ err }}</p>
+        {% if errors %}
+        <p style="color: red;text-align: center;width: 100%;display: block">{{ errors }}</p>
         {% endif %}
         <table class="logindiv">
             <tr>
                 <td>
-                    <label>用户名:</label> <input name="uname" class="form-control" type="text">
+                    <label>用户名:</label> <input id="uname" name="uname" class="form-control" type="text">
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label>密码:</label> <input name="pwd" class="form-control" type="password">
+                    <label>密码:</label> <input id="upwd" name="pwd" class="form-control" type="password">
                 </td>
             </tr>
             <tr>

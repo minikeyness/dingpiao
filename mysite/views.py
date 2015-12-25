@@ -1,11 +1,9 @@
 from django.shortcuts import render
-from django.shortcuts import render_to_response
 from django.http import Http404
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
-from django.template import RequestContext
 from django.contrib import auth
-
+from django.contrib.auth.decorators import login_required
 from mysite.forms import *
 
 
@@ -26,27 +24,25 @@ def order(request):
         return render(request, "ordersearch.html")
 
 
-def alogin(request):
+def alogin(request, su=None):
     if request.method == "GET":
-        return render(request, "login.html")
+        return render(request, "login.html", {'su': su})
     else:
         username = request.POST.get('uname', '')
         password = request.POST.get('pwd', '')
         user = auth.authenticate(name_email=username, password=password)
         if user is not None:
-            # Correct password, and the user is marked "active"
             auth.login(request, user)
-            # Redirect to home page.
             return render(request, "home.html")
         else:
             err = "登录名或密码错误！"
-            return render(request, "login.html", {'errors', err})
+            return render(request, "login.html", {'errors': err})
 
 
 def alogin_out(request):
     auth.logout(request)
     # Redirect to home page.
-    return HttpResponseRedirect("home.html")
+    return HttpResponseRedirect("/home/")
 
 
 def register(request):
@@ -54,12 +50,16 @@ def register(request):
         form = RegForm(request.POST)
         if form.is_valid():
             nu = Myuser(nickName=form.cleaned_data['nickName'], userEmail=form.cleaned_data['userEmail'],
-                      passPwd=form.cleaned_data['passPwd'])
+                        passPwd=form.cleaned_data['passPwd'])
             nu.set_hashedpwd()
-            nu.save()
-            return render(request, "login.html", {'form': form})
+            try:
+                nu.save()
+            except Exception as ex:
+                return render(request, "register.html", {'form': form, 'cw': u"注册失败!"})
+            else:
+                return render(request, "register.html", {'form': form, 'cg': u"注册成功！!"})
         else:
-            return render(request, "login.html", {'form': form})
+            return render(request, "register.html", {'form': form})
     else:
         form = RegForm()
     return render(request, "register.html", {'form': form})
