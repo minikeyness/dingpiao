@@ -5,18 +5,18 @@ from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.contrib import auth
-from django.contrib.auth.forms import UserCreationForm
+
 from mysite.forms import *
 
 
 def home(request):
-    return render_to_response('home.html', context_instance=RequestContext(request))
+    return render(request, 'home.html')
     #render_to_response需要加context_instance=
     #render（）可以自动验证crsf_token问题
 
 
 def about(request):
-    return render_to_response('about.html')
+    return render(request, 'about.html')
 
 
 def order(request):
@@ -57,7 +57,9 @@ def register(request):
                       passPwd=form.cleaned_data['passPwd'])
             nu.set_hashedpwd()
             nu.save()
-            render(request, "login.html", {'form': form})
+            return render(request, "login.html", {'form': form})
+        else:
+            return render(request, "login.html", {'form': form})
     else:
         form = RegForm()
     return render(request, "register.html", {'form': form})

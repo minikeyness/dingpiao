@@ -1,5 +1,6 @@
 body{
     width: 100%;
+    height: auto;
     background-color: #cacaca;
     padding: 0px;
     margin: 0px;
@@ -9,10 +10,12 @@ body{
 .mymain {
     display: block;
     width: 1024px;
+    height: auto;
     margin: 0px auto;
     background-color: white;
     padding: 0px;
     border: 0px;
+    overflow: hidden;
 }
 
 .mymenu{

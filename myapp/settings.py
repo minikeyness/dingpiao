@@ -127,7 +127,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-
+SECRET_KEY = 'Mysite'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
@@ -139,7 +139,7 @@ STATICFILES_DIRS = [
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
-SESSION_COOKIE_AGE = 604800
+SESSION_COOKIE_AGE = 60
 
 SESSION_SAVE_EVERY_REQUEST = True
 

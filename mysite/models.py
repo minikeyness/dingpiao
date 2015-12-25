@@ -1,15 +1,21 @@
 from django.db import models
 import hashlib
-
+from django.utils.crypto import salted_hmac
+from django.contrib.auth.models import User
 
 class CustomUserManager:
+
+    @staticmethod
     def create_user(self, nickName, userEmail, passPwd):
         newuser = Myuser(nickName=nickName, userEmail=userEmail, passPwd=passPwd)
         newuser.save()
+        return newuser
 
+    @staticmethod
     def create_superuser(self, nickName, userEmail, passPwd):
         newuser = Myuser(nickName=nickName, userEmail=userEmail, passPwd=passPwd, isSuper=True)
         newuser.save()
+        return newuser
 
 
 class Myuser(models.Model):
@@ -21,6 +27,7 @@ class Myuser(models.Model):
     idCard = models.CharField(max_length=20, blank=True)
     phoneNum = models.CharField(max_length=20, blank=True)
     isSuper = models.BooleanField(default=False)
+    last_login = models.DateTimeField(blank=True, null=True)
 
     USERNAME_FIELD = 'userEmail'
     REQUIRED_FIELDS = ['nickName', 'passPwd']
@@ -36,10 +43,10 @@ class Myuser(models.Model):
         if not password:
             return self.passPwd
         else:
-            return  hashlib.md5(password).hexdigest()
+            return hashlib.md5(password.encode('utf-8')).hexdigest()
 
     def check_password(self, password):
-        if self.hashed_password(password.encode('utf-8')) == self.passPwd:
+        if self.hashed_password(password) == self.passPwd:
             return True
         return False
 
@@ -53,7 +60,10 @@ class Myuser(models.Model):
         return self.userEmail
 
     def is_anonymous(self):
-        return  False
+        return False
+
+    def get_session_auth_hash(self):
+        return salted_hmac("mysite", self.passPwd).hexdigest()
 
     class Meta:
         db_table = "users"

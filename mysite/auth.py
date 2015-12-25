@@ -14,7 +14,6 @@ class Mycustombackend:
             return user
         return None
 
-
     def get_user(self, user_id):
         try:
             return Myuser.objects.get(pk=user_id)

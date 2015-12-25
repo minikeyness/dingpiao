@@ -22,6 +22,10 @@
 {% block content%}
     <form action="" method="post" class="form-inline" role="form">{% csrf_token %}
         <div style="width: 100%;background-color: white; height: 400px; margin-top: 100px">
+            {% if form.error %}
+                <p style="color: red;text-align: center;width: 100%;display: block">{{ form.errors }}</p>
+            {% endif %}
+
             <table class="regdiv">
             <tr>
                 <td>
