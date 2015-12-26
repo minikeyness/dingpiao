@@ -23,21 +23,21 @@
             url: "{% url "modifypwd" %}",
             dataType: "json", {# 返回值类型 #}
             success: function(data, status) {
-                myalert(data.msg);
+                alert(data.msg);
                 if (data.suc=='true'){# 修改成功，重新登录! #}
                     window.location="/login/"
             },
             error: function (request, textStatus, errorThrown) {
-                myalert("服务器忙！")
+                alert("服务器忙！")
             }
         });
     };
 
-    function addreal(){
-        var t1= $("input[name=realname]").val();
-        var t2= $("input[name=phone]").val();
-        var t3= $("input[name=idcard]").val();
-        if (t1==''||t1==''||t3=='') {
+    function addreal(btn){
+        var t1= $("input[name='realname']");
+        var t2= $("input[name='phone']");
+        var t3= $("input[name='idcard']");
+        if (t1.val()==''||t1.val()==''||t3.val()=='') {
             myalert("所有项都不能为空！");
             return false;
         }
@@ -48,35 +48,30 @@
             url: "{% url "addreal" %}",
             dataType: "json", {# 返回值类型 #}
             success: function(data, status) {
-                myalert(data.msg);
-                if (data.suc=='true'){# 修改成功，重新登录! #}{
-
+                $.unblockUI();
+                alert(data.msg);
+                if (data.suc=='true'){# 修改成功! #}{
+                    $(btn).enable();
+                    $("#toreal_div").disable();
+                    $(t1).readOnly();$(t2).readOnly();$(t3).readOnly();
                 }
             },
             error: function (request, textStatus, errorThrown) {
-                myalert("服务器忙！")
+                alert("服务器忙！")
             }
         });
     }
 
     $(function(){
         $("#topwd_div").click(function () {
-            $("#goback").show();
             $("#info").hide();
             $("#pwd_div").show();
             $("#real_div").hide();
         });
         $("#toreal_div").click(function () {
-            $("#goback").show();
             $("#info").hide();
             $("#pwd_div").hide();
             $("#real_div").show();
-        });
-        $("#goback").click(function () {
-            $("#goback").hide();
-            $("#info").show();
-            $("#pwd_div").hide();
-            $("#real_div").hide();
         });
     });
     </script>
@@ -106,6 +101,7 @@
     }
     .leftnav dl dd{
         height: 30px;
+        margin-bottom: 5px;
         line-height: 30px;
     }
     .leftnav dl dd:hover{
@@ -143,7 +139,7 @@
     <div class="leftnav">
         <dl>
             <dt>用户信息</dt>
-            <dd style="background-color: #a6e1ec"><a href="#">用户信息管理</a></dd>
+            <dd style="background-color: #a6e1ec"><a href="{% url "userinfo" %}">用户信息管理</a></dd>
             <dd><a href="{% url "contactinfo" %}">联系人管理</a></dd>
             <dt>订单</dt>
             <dd><a href="#">订单</a></dd>
@@ -154,25 +150,27 @@
         <div style="margin-top: 10px">
             <input id="toreal_div" type="button" class="btn btn-info btn-sm" value="添加身份">
             <input id="topwd_div" type="button" class="btn btn-warning btn-sm" value="修改密码">
-            <input id="goback" style="display: none" type="button" class="btn btn-default" value="返回">
         </div>
         <form id="real_div">
             <table class="table">
                 <tr>
                     <td><label>真实姓名:</label></td>
-                    <td><input name="realname" type="text" class="form-control" value="{{ user.realName }}"></td>
+                    <td><input name="realname" type="text" class="form-control" value="{{ user.realName }}"
+                               {% if user.realName %}readonly='true'{% endif %}></td>
                 </tr>
                 <tr>
                     <td><label>电话:</label></td>
-                    <td><input name="phone" type="tel" class="form-control" value="{{ user.phoneNum }}"></td>
+                    <td><input name="phone" type="tel" class="form-control" value="{{ user.phoneNum }}"
+                               {% if user.realName %}readonly='true'{% endif %}></td>
                 </tr>
                 <tr>
                     <td><label>身份证:</label></td>
-                    <td><input name="idcard" type="text" class="form-control" value="{{ user.idCard }}"></td>
+                    <td><input name="idcard" type="text" class="form-control" value="{{ user.idCard }}"
+                               {% if user.realName %}readonly='true'{% endif %}></td>
                 </tr>
                 {% if not user.realName %}
                     <tr>
-                        <td colspan="2"><input type="button" onclick="addreal()" value="保存" class="btn btn-default"></td>
+                        <td colspan="2"><input type="button" onclick="addreal(this)" value="保存" class="btn btn-primary"></td>
                     </tr>
                 {% endif %}
             </table>

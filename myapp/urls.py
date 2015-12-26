@@ -31,5 +31,8 @@ urlpatterns = [
     url(r'^user/center/$', userinfo, name="userinfo"),
     url(r'^user/contact/$', usercontact, name="contactinfo"),
     url(r'^user/modifypwd/$', modifypwd, name='modifypwd'),
-    url(r'^user/addreal/$', addreal, name='addreal')
+    url(r'^user/addreal/$', addreal, name='addreal'),
+    url(r'^user/addotherreal/$', addotherreal, name='addotherreal'),
+    url(r'^user/delpeople/$', delpeople, name='delpeople'),
+
 ]

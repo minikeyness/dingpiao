@@ -1,7 +1,7 @@
-from django.db import connection, transaction
+from django.db import connection, transaction, IntegrityError
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
+# from django.http import HttpResponseRedirect
 from django.http import Http404, HttpResponse
 from django.contrib import auth
 import json
@@ -19,7 +19,7 @@ def usercontact(requset):
     return render(requset, "contactpage.html", {"peoples": peoplelist})
 
 
-# 检测是否登录，否则跳转到登录页面
+# 检测是否登录，否则跳转到登录页面,不实用next page
 @login_required(redirect_field_name=None, login_url="/login/?msg=login")
 def userinfo(requset):
     return render(requset, "userpage.html")
@@ -37,7 +37,7 @@ def modifypwd(req):
                 try:
                     newpwd = u.hashed_password(pwd2)
                     u.changepwd(newpwd=newpwd)
-                except Exception as e:
+                except :
                     return HttpResponse(json.dumps({"msg": "修改失败!"}))
                 else:
                     auth.logout(req)
@@ -52,4 +52,69 @@ def modifypwd(req):
 
 @login_required(redirect_field_name=None, login_url="/login/?msg=login")
 def addreal(req):
-    pass
+     if req.is_ajax() and req.method == 'POST':
+        uid = req.user.id
+        name = req.POST.get('realname')
+        phone = req.POST.get('phone')
+        idcard = req.POST.get('idcard')
+        if name and phone and idcard:
+            try:
+                with transaction.atomic():
+                    cursor = connection.cursor()
+                    sql1 = u"UPDATE users SET realName = '%s',phoneNum = '%s',idCard ='%s' WHERE id =%s"\
+                        % (name, phone, idcard, uid, )
+                    sql2 = u"INSERT INTO peoples(realName,idCard,phoneNum,uId) VALUES('%s', '%s', '%s' ,%s)"\
+                        % (name, idcard, phone, uid)
+                    cursor.execute(sql1)
+                    cursor.execute(sql2)
+            except : # 相当于不抛出异常,系统也就不会处理什么了
+                return HttpResponse(json.dumps({"msg": "添加失败!"}))
+            else:
+                return HttpResponse(json.dumps({"msg": "添加成功！", "suc": 'true'}))
+        else:
+            return HttpResponse(json.dumps({"msg": "三项数据都不能为空！"}))
+     else:
+        return Http404()
+
+
+@login_required(redirect_field_name=None, login_url="/login/?msg=login")
+def addotherreal(req):
+    if req.is_ajax() and req.method == 'POST':
+        uid = req.user.id
+        name = req.POST.get('realname')
+        phone = req.POST.get('phone')
+        idcard = req.POST.get('idcard')
+        if name and phone and idcard:
+            try:
+                cursor = connection.cursor()
+                sql = u"INSERT INTO peoples(realName,idCard,phoneNum,uId) VALUES('%s', '%s', '%s' ,%s)"\
+                    % (name, idcard, phone, uid)
+                cursor.execute(sql)
+            except: # 相当于不抛出异常,系统也就不会处理什么了
+                return HttpResponse(json.dumps({"msg": "添加失败!"}))
+            else:
+                return HttpResponse(json.dumps({"msg": "添加成功！", "suc": 'true'}))
+        else:
+            return HttpResponse(json.dumps({"msg": "三项数据都不能为空！"}))
+    else:
+        return Http404()
+
+
+@login_required(redirect_field_name=None, login_url="/login/?msg=login")
+def delpeople(req):
+    if req.is_ajax() and req.method == 'POST':
+        did = req.POST.get('id')
+        if did:
+            try:
+                cursor = connection.cursor()
+                sql = u"DELETE FROM peoples WHERE id =%s" % (did,)
+                cursor.execute(sql)
+            except: # 相当于不抛出异常,系统也就不会处理什么了
+                return HttpResponse(json.dumps({"msg": "删除失败!"}))
+            else:
+                return HttpResponse(json.dumps({"msg": "删除成功！", "suc": 'true'}))
+        else:
+            return HttpResponse(json.dumps({"msg": "三项数据都不能为空！"}))
+    else:
+        return Http404()
+

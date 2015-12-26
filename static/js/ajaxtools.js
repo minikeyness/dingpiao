@@ -31,7 +31,7 @@ $.ajaxSetup({
         }
     }
 });
-$.blockUI.defaults.css={};
+$.blockUI.defaults.css={};//中间内容的css
 $.blockUI.defaults.css= {
     padding:        0,
     margin:         0,
@@ -46,11 +46,12 @@ $.blockUI.defaults.css= {
     '-webkit-border-radius': '10px',
     '-moz-border-radius': '10px',
     'border-radius': '10px',
-    opacity: .5,
+    opacity: .9,//基本不透明
 };
 $.blockUI.defaults.message=null;
 $.blockUI.defaults.message='<h2>请稍等...</h2>';
 $.blockUI.defaults.overlayCSS.cursor='point';
+$.blockUI.defaults.overlayCSS.opacity=0.5;//覆盖层的透明度
 $(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
 
 //blockUI扩展

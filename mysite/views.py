@@ -42,7 +42,7 @@ def alogin(request):
         if user is not None:
             auth.login(request, user)
             #return redirect(reverse('home'),arg=[])
-            return HttpResponseRedirect("/home/")
+            return HttpResponseRedirect("/user/center/")
         else:
             err = "登录名或密码错误！"
             return HttpResponseRedirect("/login/?msg=err")

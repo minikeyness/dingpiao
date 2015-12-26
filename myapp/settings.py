@@ -46,7 +46,7 @@ CSRF_COOKIE_AGE = None
 SESSION_SAVE_EVERY_REQUEST = True
 
 MIDDLEWARE_CLASSES = [
-    'django.middleware.security.SecurityMiddleware',
+    #'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -87,8 +87,9 @@ DATABASES = {
         'NAME': 'my12306',
         'USER': 'fordev',
         'PASSWORD': 'sa',
-        'HOST': 'localhost',
+        'HOST': '10.4.9.206',
         'PORT': '3306',
+        # 'AUTOCOMMIT': 'False ',
     }
 }
 
