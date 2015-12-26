@@ -5,9 +5,8 @@
 {% block extra_head %}
     <script type="text/javascript">
     $(function () {
-
-        {% if  su %}
-        alert("注册成功，请登录！");
+        {% if msg %}
+        alert("{{ msg }}");
         {% endif %}
 {#        $("[data-toggle='popover']").popover();#}
     $("input[type=submit]").click(function(e){

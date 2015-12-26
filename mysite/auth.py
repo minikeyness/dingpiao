@@ -8,11 +8,12 @@ class Mycustombackend:
         try:
             user = Myuser.objects.get(Q(userEmail=name_email) | Q(nickName=name_email))
         except Myuser.DoesNotExist:
-            pass
+            return None
         else:
-            user.check_password(password)
-            return user
-        return None
+            if user.check_password(password):
+                return user
+            else:
+                return None
 
     def get_user(self, user_id):
         try:

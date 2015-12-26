@@ -1,10 +1,12 @@
 from django.shortcuts import render
-from django.http import Http404
-from django.http import HttpResponse
+# from django.http import Http404
+# from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.contrib import auth
-from django.contrib.auth.decorators import login_required
+# from django.contrib.auth.decorators import login_required
 from mysite.forms import *
+from django.core.urlresolvers import reverse
+from django.shortcuts import redirect
 
 
 def home(request):
@@ -18,30 +20,36 @@ def about(request):
 
 
 def order(request):
-    if request.method == "GET":
-        return render(request, "ordersearch.html")
-    else:
         return render(request, "ordersearch.html")
 
 
-def alogin(request, su=None):
+def alogin(request):
     if request.method == "GET":
-        return render(request, "login.html", {'su': su})
-    else:
+        msg = request.GET.get('msg')
+        if msg is not None and msg == 'login':
+            msg = '请先登录！'
+        elif msg is not None and msg == 'suc':
+            msg = '注册成功!'
+        elif msg is not None and msg == 'err':
+            msg = '用户名或密码错误!'
+        else:
+            msg = None
+        return render(request, "login.html", {'msg': msg})
+    else:  # 提交登录请求post
         username = request.POST.get('uname', '')
         password = request.POST.get('pwd', '')
         user = auth.authenticate(name_email=username, password=password)
         if user is not None:
             auth.login(request, user)
-            return render(request, "home.html")
+            #return redirect(reverse('home'),arg=[])
+            return HttpResponseRedirect("/home/")
         else:
             err = "登录名或密码错误！"
-            return render(request, "login.html", {'errors': err})
+            return HttpResponseRedirect("/login/?msg=err")
 
 
 def alogin_out(request):
     auth.logout(request)
-    # Redirect to home page.
     return HttpResponseRedirect("/home/")
 
 
