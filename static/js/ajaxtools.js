@@ -31,3 +31,32 @@ $.ajaxSetup({
         }
     }
 });
+$.blockUI.defaults.css={};
+$.blockUI.defaults.css= {
+    padding:        0,
+    margin:         0,
+    width:          '30%',
+    top:            '40%',
+    left:           '35%',
+    textAlign:      'center',
+    color:          '#fff',
+    border:         '1px solid #aaa',
+    backgroundColor:'#000',
+    cursor:         'point',
+    '-webkit-border-radius': '10px',
+    '-moz-border-radius': '10px',
+    'border-radius': '10px',
+    opacity: .5,
+};
+$.blockUI.defaults.message=null;
+$.blockUI.defaults.message='<h2>请稍等...</h2>';
+$.blockUI.defaults.overlayCSS.cursor='point';
+$(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
+
+//blockUI扩展
+myalert=function(msg){
+    $.blockUI({
+        message:'<h2>'+msg+'</h2><br/><input class="btn btn-primary" type="button" value="确认" onclick="$.unblockUI()">',
+    overlayCSS: { backgroundColor: '#000',opacity:0.2}
+    });
+}

@@ -65,6 +65,9 @@ class Myuser(models.Model):
     def get_session_auth_hash(self):
         return salted_hmac("mysite", self.passPwd).hexdigest()
 
+    def changepwd(self, newpwd):
+        Myuser.objects.filter(id=self.id).update(passPwd=newpwd)
+
     class Meta:
         db_table = "users"
 

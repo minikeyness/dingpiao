@@ -4,22 +4,60 @@
 {% endblock %}
 {% block extra_head %}
     <script type="text/javascript">
-
     function alertpwd(){
-        da=$("#pwd_div").serialize();
+        var t1= $("input[name=ch_oldpwd]").val();
+        var t2= $("input[name=ch_cifpwd1]").val();
+        var t3= $("input[name=ch_cifpwd2]").val();
+        if (t1==''||t1==''||t3=='') {
+            myalert('所有项都不能为空！');
+            return false;
+        }
+        else if (t2!=t3) {
+            myalert("两次密码输入不一致！");
+            return false;
+        }
+        var da= $("#pwd_div").serialize();
         $.ajax({
             type: "POST",
             data: da,
-            url: "{% url "userinfo" %}",
-            dataType: "html",
-            success: function(html, textStatus) {
-                alert("修改成功！");
+            url: "{% url "modifypwd" %}",
+            dataType: "json", {# 返回值类型 #}
+            success: function(data, status) {
+                myalert(data.msg);
+                if (data.suc=='true'){# 修改成功，重新登录! #}
+                    window.location="/login/"
             },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alert("修改失败！")
+            error: function (request, textStatus, errorThrown) {
+                myalert("服务器忙！")
             }
         });
     };
+
+    function addreal(){
+        var t1= $("input[name=realname]").val();
+        var t2= $("input[name=phone]").val();
+        var t3= $("input[name=idcard]").val();
+        if (t1==''||t1==''||t3=='') {
+            myalert("所有项都不能为空！");
+            return false;
+        }
+        var da= $("#real_div").serialize();
+        $.ajax({
+            type: "POST",
+            data: da,
+            url: "{% url "addreal" %}",
+            dataType: "json", {# 返回值类型 #}
+            success: function(data, status) {
+                myalert(data.msg);
+                if (data.suc=='true'){# 修改成功，重新登录! #}{
+
+                }
+            },
+            error: function (request, textStatus, errorThrown) {
+                myalert("服务器忙！")
+            }
+        });
+    }
 
     $(function(){
         $("#topwd_div").click(function () {
@@ -118,27 +156,27 @@
             <input id="topwd_div" type="button" class="btn btn-warning btn-sm" value="修改密码">
             <input id="goback" style="display: none" type="button" class="btn btn-default" value="返回">
         </div>
-        <div id="real_div">
+        <form id="real_div">
             <table class="table">
                 <tr>
                     <td><label>真实姓名:</label></td>
-                    <td><input type="text" class="form-control"></td>
+                    <td><input name="realname" type="text" class="form-control" value="{{ user.realName }}"></td>
                 </tr>
                 <tr>
                     <td><label>电话:</label></td>
-                    <td><input type="tel" class="form-control"></td>
+                    <td><input name="phone" type="tel" class="form-control" value="{{ user.phoneNum }}"></td>
                 </tr>
                 <tr>
                     <td><label>身份证:</label></td>
-                    <td><input type="text" class="form-control"></td>
+                    <td><input name="idcard" type="text" class="form-control" value="{{ user.idCard }}"></td>
                 </tr>
-                {% if user.realName %}
+                {% if not user.realName %}
                     <tr>
-                        <td colspan="2"><input type="button" value="保存" class="btn btn-default"></td>
+                        <td colspan="2"><input type="button" onclick="addreal()" value="保存" class="btn btn-default"></td>
                     </tr>
                 {% endif %}
             </table>
-        </div>
+        </form>
         <form id="pwd_div">
             <table class="table">
                 <tr>

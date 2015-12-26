@@ -30,4 +30,6 @@ urlpatterns = [
     url(r'^register/$', register, name="register"),
     url(r'^user/center/$', userinfo, name="userinfo"),
     url(r'^user/contact/$', usercontact, name="contactinfo"),
+    url(r'^user/modifypwd/$', modifypwd, name='modifypwd'),
+    url(r'^user/addreal/$', addreal, name='addreal')
 ]

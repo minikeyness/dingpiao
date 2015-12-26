@@ -29,7 +29,7 @@ def alogin(request):
         if msg is not None and msg == 'login':
             msg = '请先登录！'
         elif msg is not None and msg == 'suc':
-            msg = '注册成功!'
+            msg = '修改密码成功!，请重新登录!'
         elif msg is not None and msg == 'err':
             msg = '用户名或密码错误!'
         else:
