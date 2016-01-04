@@ -1,28 +1,14 @@
 {% extends "base.html" %}
 {% block title %}
-    订票
+    余票
 {% endblock %}
 {% block extra_head %}
     <script type="text/javascript">
     $(function(){
-        $("#l2").css("background-color","#ffffff");
+        $("#15").css("background-color","#ffffff");
     });
-    function makeorder(btn){
-        if (!confirm("你确定预订吗？"))
-            return false;
-       var tmp= $(btn).attr('data').split(';');
-        $.ajax({
-            type:"POST",
-            data: {'trainnum':tmp[0],'start':tmp[1],'end':tmp[2],'date':tmp[3]},
-            url: "{% url "creatorder" %}",
-            dataType:"json",
-            success: function (data2) {
-                alert("订票成功！你的车厢是"+data2.carseat[0][0]+"座位号是"+data2.carseat[0][1])
-            },
-        
-        });
-    }
-    function order(btn){
+
+    function searchyp(btn){
        var startstation = $("input[name='startstation']");
         var endstation = $("input[name='endstation']");
         var date = $("input[name='date']");
@@ -32,13 +18,12 @@
         $.ajax({
          type :"POST",
           data: {'startstation':startstation.val(),'endstation':endstation.val(),'date':date.val()},
-            url:"{% url "searchorder" %}",
+            url:"{% url "searchyp" %}",
             dataType:"json",
             success: function(data1){
                 var body = ""
                 for (var i=0;i<data1.numoftrain;i++){
                     var price = data1.endprice[i]-data1.startprice[i]
-                    if (data1.ticketlist[i]==0)
                     body = "<tr>" +
                             " <td>"+data1.trainlist[i]+"</td>" +
                             "<td>"+startstation.val()+"</td>" +
@@ -46,21 +31,7 @@
                             "<td>"+data1.starttime[i]+"</td>" +
                             "<td>"+data1.endtime[i]+"</td>" +
                             " <td>"+price+"</td>" +
-                            " <td>"+data1.ticketlist[i]+"</td>" +
-                             "<td><input type='button'  class='btn btn-info btn-sm' disabled='disabled' value='预订'></td>"+
-                            "</tr>"
-                    else
-                    body = "<tr>" +
-                            " <td id='train'>"+data1.trainlist[i]+"</td>" +
-                            "<td id='start'>"+startstation.val()+"</td>" +
-                            "<td id='end'>"+endstation.val()+"</td>" +
-                            "<td>"+data1.starttime[i]+"</td>" +
-                            "<td>"+data1.endtime[i]+"</td>" +
-                            " <td>"+price+"</td>" +
-                            " <td>"+data1.ticketlist[i]+"</td>" +
-                            " <td><input type='button' onclick='makeorder(this)' data='"+ data1.trainlist[i]+";" +
-                            startstation.val()+";"+endstation.val()+";"+date.val()+
-                            "' class='btn btn-info btn-sm' value='预订'></td>"+
+                            "  <td>"+data1.ticketlist[i]+"</td>" +
                             "</tr>"
                     $("#ypcx").append(body);
                 }
@@ -131,7 +102,7 @@
             <dt>出发日</dt>
              <dd style="background-color: #a6e1ec"><input type="date" class="form-control" name = "date"></dd>
         </dl>
-           <td><input type="button"   onclick="order(this)" class="btn btn-warning btn-sm" value="查询余票"></td>
+           <td><input type="button"   onclick="searchyp(this)" class="btn btn-warning btn-sm" value="查询余票"></td>
      </form>
     </div>
 
@@ -147,7 +118,6 @@
         <th style="text-align: center">到达时间</th>
         <th style="text-align: center"> 票价 </th>
         <th style="text-align: center">   余票   </th>
-        <th style="text-align: center">   备注  </th>
     </tr>
     </thead>
     <tbody id="ypcx">

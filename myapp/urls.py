@@ -25,6 +25,8 @@ urlpatterns = [
     url(r'^home/$', home, name="home"),
     url(r'^about/$', about, name="about"),
     url(r'^order/$', order, name="order"),
+    url(r'^searchorder/$',searchorder,name="searchorder"),
+    url(r'^ypcx/$', ypcx, name="ypcx"),
     url(r'^login/$', alogin, name="loginin"),
     url(r'^loginout/$', alogin_out, name="loginout"),
     url(r'^register/$', register, name="register"),
@@ -34,5 +36,6 @@ urlpatterns = [
     url(r'^user/addreal/$', addreal, name='addreal'),
     url(r'^user/addotherreal/$', addotherreal, name='addotherreal'),
     url(r'^user/delpeople/$', delpeople, name='delpeople'),
-
+    url(r'^searchyp/$', searchyp, name ='searchyp'),
+    url(r'crearorder/$',creatorder,name='creatorder'),
 ]

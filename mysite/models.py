@@ -2,7 +2,9 @@ from django.db import models
 import hashlib
 from django.utils.crypto import salted_hmac
 from django.contrib.auth.models import AbstractBaseUser
-
+import json
+from json import JSONEncoder
+from  datetime import date,datetime,time
 class CustomUserManager:
 
     @staticmethod
@@ -71,3 +73,13 @@ class Myuser(models.Model):
     class Meta:
         db_table = "users"
 
+class myJsonEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, datetime):
+          return (obj.strftime('%H %M %S'))
+        elif isinstance(obj, date):
+           return (obj.strftime('%H %M %S'))
+        elif isinstance(obj, time):
+          return  (obj.strftime('%H %M %S'))
+        else:
+          return json.JSONEncoder.default(self, obj)

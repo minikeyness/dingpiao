@@ -83,13 +83,18 @@ WSGI_APPLICATION = 'myapp.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        # 'ENGINE': 'django.db.backends.mysql',
+        #  'NAME': 'trainticket',
+        # 'USER': 'root',
+        # 'PASSWORD': '123456',
+        # 'HOST': '127.0.0.1',
+        # 'PORT': '3306',
         'NAME': 'my12306',
         'USER': 'fordev',
         'PASSWORD': 'sa',
         'HOST': '10.4.9.206',
         'PORT': '3306',
-        # 'AUTOCOMMIT': 'False ',
+        'AUTOCOMMIT': 'False ',
     }
 }
 
